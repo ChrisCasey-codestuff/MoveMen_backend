@@ -40,11 +40,15 @@ app.get('/', (req, res) => {
   res.send('hello world');
 });
 
-app.get('/exercises', (req, res) => {
-  Exercise.find({});
+app.get('/exercises', async (req, res) => {
+  try {
+    res.status(201).json(await Exercise.find({}));
+  } catch (error) {
+    res.status(400).json({ message: "something went wrong" });
+  }
 });
 
-app.post("/exercises", async (req, res) => {
+app.post('/exercises', async (req, res) => {
   try {
     res.status(201).json(await Exercise.create(req.body));
   } catch (error) {
