@@ -48,6 +48,16 @@ app.get('/exercises', async (req, res) => {
   }
 });
 
+app.get('/exercises/:bodyArea', async (req, res) => {
+  try {
+    console.log(req.params)
+    const exercises = await Exercise.find({ bodyArea: req.params.bodyArea });
+    res.status(200).json(exercises);
+  } catch (error) {
+    res.status(400).json({ message: "Something went wrong" });
+  }
+});
+
 app.post('/exercises', async (req, res) => {
   try {
     res.status(201).json(await Exercise.create(req.body));
