@@ -48,13 +48,22 @@ app.get('/exercises', async (req, res) => {
   }
 });
 
+
 app.get('/exercises/:bodyArea', async (req, res) => {
   try {
-    console.log(req.params)
     const exercises = await Exercise.find({ bodyArea: req.params.bodyArea });
     res.status(200).json(exercises);
   } catch (error) {
     res.status(400).json({ message: "Something went wrong" });
+  }
+});
+
+app.get('/exercise/:_id', async (req, res) => {
+  try {
+    console.log(req.params)
+    res.status(201).json(await Exercise.find({_id: req.params._id}));
+  } catch (error) {
+    res.status(400).json({ message: "something went wrong" });
   }
 });
 
