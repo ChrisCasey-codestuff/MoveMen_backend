@@ -6,6 +6,7 @@ const ExerciseSchema = new Schema({
   bodyArea: String,
   type: String,
   description: String,
+  tags: Array,
 }, { timestamps: false });
 
 module.exports = mongoose.model('Exercise', ExerciseSchema);
