@@ -9,6 +9,7 @@ const express = require('express');
 // create application object
 const app = express();
 const Exercise = require('./models/exercises.js')
+const Hep = require('./models/heps.js')
 ///////////////////////////////
 // Application Settings
 ////////////////////////////////
@@ -48,6 +49,13 @@ app.get('/exercises', async (req, res) => {
   }
 });
 
+app.get('/heps', async (req, res) => {
+  try {
+    res.status(201).json(await Hep.find({}));
+  } catch (error) {
+    res.status(400).json({ message: "something went wrong" });
+  }
+});
 
 app.get('/exercises/:bodyArea', async (req, res) => {
   try {
@@ -75,6 +83,14 @@ app.post('/exercises', async (req, res) => {
   }
 });
 
+app.post('/heps', async (req, res) => {
+
+  try {
+    res.status(201).json(await Hep.create(req.body));
+  } catch (error) {
+    res.status(400).json({ message: "something went wrong" });
+  }
+});
 //app.get("/exercises/bodyareas")
 
 ///////////////////////////////
