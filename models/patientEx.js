@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const HepSchema = new Schema({
+const PatientExSchema = new Schema({
   reps: String,
   weight: String,
   bands: String,
@@ -13,4 +13,4 @@ const HepSchema = new Schema({
   hour: String,
 }, { timestamps: true });
 
-module.exports = mongoose.model('Hep', HepSchema);
+module.exports = mongoose.model('patientEx', PatientExSchema);
