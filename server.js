@@ -9,7 +9,8 @@ const express = require('express');
 // create application object
 const app = express();
 const Exercise = require('./models/exercises.js')
-const PatientEx = require('./models/patientEx.js')
+
+const Hep = require('./models/hep.js')
 ///////////////////////////////
 // Application Settings
 ////////////////////////////////
@@ -86,7 +87,7 @@ app.post('/exercises', async (req, res) => {
 app.post('/heps', async (req, res) => {
 
   try {
-    res.status(201).json(await PatientEx.create(req.body));
+    res.status(201).json(await Hep.create(req.body));
   } catch (error) {
     res.status(400).json({ message: "something went wrong" });
   }
