@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const HepSchema = new Schema({
-  Hep: Array,
+  hep: Array,
 }, { timestamps: true });
 
 module.exports = mongoose.model('Hep', HepSchema);
