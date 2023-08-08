@@ -9,7 +9,7 @@ const express = require('express');
 // create application object
 const app = express();
 const Exercise = require('./models/exercises.js')
-
+const User = require('./models/user.js')
 const Hep = require('./models/hep.js')
 ///////////////////////////////
 // Application Settings
@@ -58,6 +58,14 @@ app.get('/heps', async (req, res) => {
   }
 });
 
+app.get('/users/:id', async (req, res) => {
+  try {
+    res.status(201).json(await User.find({ id: req.params.id }));
+  } catch (error) {
+    res.status(400).json({ message: "something went wrong" });
+  }
+});
+
 app.get('/exercises/:bodyArea', async (req, res) => {
   try {
     const exercises = await Exercise.find({ bodyArea: req.params.bodyArea });
@@ -79,6 +87,14 @@ app.get('/exercise/:_id', async (req, res) => {
 app.post('/exercises', async (req, res) => {
   try {
     res.status(201).json(await Exercise.create(req.body));
+  } catch (error) {
+    res.status(400).json({ message: "something went wrong" });
+  }
+});
+
+app.post('/users', async (req, res) => {
+  try {
+    res.status(201).json(await User.create(req.body));
   } catch (error) {
     res.status(400).json({ message: "something went wrong" });
   }
