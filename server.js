@@ -9,7 +9,8 @@ const express = require('express');
 // create application object
 const app = express();
 const Exercise = require('./models/exercises.js')
-const User = require('./models/user.js')
+const PatientUser = require('./models/patientUser.js')
+const TherapistUser = require('./models/therapistUser.js')
 const Hep = require('./models/hep.js')
 ///////////////////////////////
 // Application Settings
@@ -50,6 +51,23 @@ app.get('/exercises', async (req, res) => {
   }
 });
 
+
+app.get('/therapistUsers', async (req, res) => {
+  try {
+    res.status(201).json(await TherapistUser.find());
+  } catch (error) {
+    res.status(400).json({ message: "something went wrong" });
+  }
+});
+
+app.get('/patientUsers', async (req, res) => {
+  try {
+    res.status(201).json(await PatientUser.find());
+  } catch (error) {
+    res.status(400).json({ message: "something went wrong" });
+  }
+});
+
 app.get('/heps', async (req, res) => {
   try {
     res.status(201).json(await Hep.find({}));
@@ -58,13 +76,32 @@ app.get('/heps', async (req, res) => {
   }
 });
 
-app.get('/users/:id', async (req, res) => {
+app.get('/patientUsers/:id', async (req, res) => {
   try {
-    res.status(201).json(await User.find({ id: req.params.id }));
+    res.status(201).json(await PatientUser.find({ id: req.params.id }));
   } catch (error) {
     res.status(400).json({ message: "something went wrong" });
   }
 });
+
+app.get('/therapistUsers/:id', async (req, res) => {
+  try {
+
+    res.status(201).json(await TherapistUser.find({ id: req.params.id }));
+  } catch (error) {
+    res.status(400).json({ message: "something went wrong" });
+  }
+});
+
+app.get('/therapistPatients/:id', async (req, res) => {
+  try {
+    console.log(req.params)
+    res.status(201).json(await PatientUser.find({ therapistId: req.params.id }));
+  } catch (error) {
+    res.status(400).json({ message: "something went wrong" });
+  }
+});
+
 
 app.get('/exercises/:bodyArea', async (req, res) => {
   try {
@@ -77,7 +114,6 @@ app.get('/exercises/:bodyArea', async (req, res) => {
 
 app.get('/exercise/:_id', async (req, res) => {
   try {
-    console.log(req.params)
     res.status(201).json(await Exercise.find({_id: req.params._id}));
   } catch (error) {
     res.status(400).json({ message: "something went wrong" });
@@ -92,9 +128,17 @@ app.post('/exercises', async (req, res) => {
   }
 });
 
-app.post('/users', async (req, res) => {
+app.post('/patientUsers', async (req, res) => {
   try {
-    res.status(201).json(await User.create(req.body));
+    res.status(201).json(await PatientUser.create(req.body));
+  } catch (error) {
+    res.status(400).json({ message: "something went wrong" });
+  }
+});
+
+app.post('/therapistUsers', async (req, res) => {
+  try {
+    res.status(201).json(await TherapistUser.create(req.body));
   } catch (error) {
     res.status(400).json({ message: "something went wrong" });
   }
