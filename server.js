@@ -76,6 +76,14 @@ app.get('/heps', async (req, res) => {
   }
 });
 
+app.get('/heps/:patient', async (req, res) => {
+  try {
+    res.status(201).json(await Hep.find({patient: req.params.patient}));
+  } catch (error) {
+    res.status(400).json({ message: "something went wrong" });
+  }
+});
+
 app.get('/patientUsers/:id', async (req, res) => {
   try {
     res.status(201).json(await PatientUser.find({ id: req.params.id }));
